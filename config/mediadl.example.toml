@@ -1,0 +1,106 @@
+# mediadl configuration. Every value below is a default; delete what you
+# do not need. Environment overrides use the MEDIADL_ prefix and a double
+# underscore for nesting, e.g. MEDIADL_OUTPUT__POLICY=broadly_compatible.
+
+[sources]
+# Connectors are loaded from the "mediadl.connectors" entry-point group and
+# filtered by this allowlist. A connector that is not listed cannot run.
+enabled = ["instagram_graph", "direct_url", "user_files", "stream_manifest"]
+# Directories the user-files connector may import from. Empty means "any
+# path the process can read", which is only appropriate for a local install.
+import_roots = []
+
+[output]
+root = "~/Downloads/mediadl"
+template = "{source}/{owner}/{date}_{collection_or_media_id}/{position:02d}-of-{count:02d}_{kind}_{media_id}_{rep_label}.{ext}"
+# source_preserving | broadly_compatible | storage_efficient
+policy = "source_preserving"
+keep_source = true
+sidecar = true
+# Embedding metadata changes the file's bytes even with a stream copy, so
+# descriptive metadata goes in a sidecar by default.
+embed_metadata = false
+zip = false
+# dedupe_or_suffix | fail | overwrite
+collision = "dedupe_or_suffix"
+save_previews = false
+
+[policies.broadly_compatible]
+max_height = 1080
+video = { codec = "h264", crf = 18, preset = "medium", pix_fmt = "yuv420p" }
+audio = { codec = "aac", bitrate = "192k" }
+image = { format = "jpeg", quality = 95 }
+
+[policies.storage_efficient]
+min_short_side = 720
+video = { codec = "hevc", crf = 26, preset = "medium", tag = "hvc1" }
+audio = { codec = "opus", bitrate = "128k" }
+# Keep a re-encode only when it saves at least this fraction.
+require_savings_ratio = 0.25
+
+[limits]
+max_asset_bytes = 4294967296
+max_assets_per_collection = 50
+max_duration_s = 1800
+max_image_pixels = 100000000
+max_video_pixels = 33177600
+job_timeout_s = 7200
+ffmpeg_timeout_factor = 3.0
+ffmpeg_timeout_floor_s = 60.0
+max_playlist_bytes = 5242880
+
+[network]
+connect_timeout_s = 10
+read_timeout_s = 30
+write_timeout_s = 30
+max_redirects = 5
+# Only http and https may be listed. http is accepted for connectors that
+# explicitly declare it; the SSRF guard still applies either way.
+allowed_schemes = ["https"]
+allowed_ports = [443]
+per_host_concurrency = 4
+chunk_size = 1048576
+
+[retry]
+max_attempts = 5
+base_s = 1.0
+cap_s = 60.0
+# A provider asking for a longer wait than this parks the job instead of
+# holding a worker.
+park_threshold_s = 900
+
+[concurrency]
+assets_per_job = 3
+segments = 4
+active_jobs_per_user = 3
+
+[instagram_graph]
+# Instagram Login is the supported OAuth flow. facebook_login is not yet implemented.
+auth_mode = "instagram_login"
+api_version = "v25.0"
+# Request the minimum scope that can read the account's own media.
+scopes = ["instagram_business_basic"]
+requests_per_second_per_connection = 1.0
+index_page_size = 50
+index_max_pages = 200
+# Server-side broker for the OAuth code exchange. A desktop app cannot keep
+# an app secret, so either use a broker or run single-user with your own
+# Meta app (see README).
+# auth_broker_url = "https://auth.example.com/instagram"
+
+[ffmpeg]
+# Empty means "look it up on PATH".
+path = ""
+# Refuse to run against an --enable-nonfree build, which is not redistributable.
+fail_on_nonfree_build = true
+enabled = true
+
+[jobs]
+# Empty means <platform data dir>/mediadl/jobs.sqlite3
+database = ""
+lease_seconds = 60
+heartbeat_seconds = 20
+
+[logging]
+level = "INFO"
+json = false

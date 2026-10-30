@@ -1,0 +1,7 @@
+{
+  "data": [
+    {"id": "17889455560051444", "shortcode": "SanitizedCode1", "permalink": "https://www.instagram.com/p/SanitizedCode1/", "timestamp": "2026-07-04T08:01:22+0000", "media_type": "IMAGE", "media_product_type": "FEED"},
+    {"id": "17889455560051445", "shortcode": "SanitizedCode2", "permalink": "https://www.instagram.com/reel/SanitizedCode2/", "timestamp": "2026-07-05T09:11:00+0000", "media_type": "VIDEO", "media_product_type": "REELS"}
+  ],
+  "paging": {"cursors": {"before": "AAA", "after": "BBB"}, "next": "https://graph.instagram.com/v25.0/me/media?after=BBB&access_token=SANITIZED"}
+}

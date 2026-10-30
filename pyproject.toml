@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mediadl"
+version = "0.1.0"
+description = "Independent, policy-constrained media downloader with an authorized-access-only connector model"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "httpx>=0.28,<1",
+  "pydantic>=2.13,<3",
+  "pydantic-settings>=2.15,<3",
+  "platformdirs>=4",
+  "typer>=0.27",
+  "cryptography>=50",
+  "keyring>=25",
+  "defusedxml>=0.7.1",
+]
+
+[project.optional-dependencies]
+images = ["Pillow>=12"]
+server = ["fastapi>=0.115", "uvicorn[standard]>=0.30", "SQLAlchemy>=2.0.54", "alembic>=1.20", "prometheus-client>=0.26", "structlog>=26"]
+dev = ["pytest>=9", "pytest-asyncio", "respx>=0.23", "hypothesis>=6", "mypy", "ruff"]
+
+[project.scripts]
+mediadl = "mediadl.cli:main"
+
+[project.entry-points."mediadl.connectors"]
+direct_url = "mediadl.connectors.direct_url:DirectUrlConnector"
+user_files = "mediadl.connectors.user_files:UserFilesConnector"
+instagram_graph = "mediadl.connectors.instagram_graph:InstagramGraphConnector"
+stream_manifest = "mediadl.connectors.stream_manifest:StreamManifestConnector"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mediadl"]
+artifacts = ["src/mediadl/api/static/*"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/mediadl/py.typed" = "mediadl/py.typed"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["e2e: opt-in end-to-end tests against authorized accounts (deselect with -m 'not e2e')"]
+filterwarnings = ["error::DeprecationWarning:mediadl.*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "S", "C4", "RUF"]
+# S101 assert (used throughout tests), S603/S607 subprocess (FFmpeg is
+# invoked deliberately, with argument lists), S105/S106 "hardcoded password"
+# (test placeholders), UP047 PEP 695 generics (not worth the churn yet).
+ignore = ["S101", "S603", "S607", "S105", "S106", "UP047", "RUF005", "C408"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["RUF012", "RUF059", "B017"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+explicit_package_bases = true
+namespace_packages = true
+files = ["src/mediadl/domain", "src/mediadl/selection", "src/mediadl/transfer"]

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101d32">
+<title>mediadl — Media downloader</title>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%E2%86%93%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01"/><path d="m10.3 3.9-8.5 14A2 2 0 0 0 3.5 21h17a2 2 0 0 0 1.7-3.1l-8.5-14a2 2 0 0 0-3.4 0Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 3.5 3.5 2.5-2.5 5 4.5"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.1 2.1-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-3v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1L6.6 17l.1-.1A1.7 1.7 0 0 0 7 15a1.7 1.7 0 0 0-1.5-1H5.3v-3h.2A1.7 1.7 0 0 0 7 10a1.7 1.7 0 0 0-.3-1.9l-.1-.1 2.1-2.1.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2h3v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 8l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2v3h-.2a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 2 5.5"/><path d="M20 4v7h-7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="m20 4-9 9"/><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+</svg>
+
+<header class="app-header">
+  <button class="brand" type="button" data-view="downloader" aria-label="Mediadl home">
+    <span class="brand-mark"><svg class="icon"><use href="#i-download"></use></svg></span>
+    <span class="brand-name">mediadl</span>
+  </button>
+  <nav class="main-nav" aria-label="Primary navigation">
+    <button type="button" class="nav-link" data-view="downloader" aria-current="page"><svg class="icon"><use href="#i-download"></use></svg><span>Downloader</span></button>
+    <button type="button" class="nav-link" data-view="history"><svg class="icon"><use href="#i-history"></use></svg><span>Downloads</span><span class="nav-count" id="jobs-badge">0</span></button>
+    <button type="button" class="nav-link" data-view="setup"><svg class="icon"><use href="#i-settings"></use></svg><span>Setup</span></button>
+  </nav>
+  <div class="header-status">
+    <div class="live" id="live-indicator" data-state="connecting" aria-live="polite"><span class="dot"></span><span id="live-text">Connecting</span></div>
+    <button type="button" class="output-root" data-view="setup" title="Download location"><svg class="icon"><use href="#i-folder"></use></svg><span id="meta-output">Loading location…</span></button>
+  </div>
+</header>
+
+<main class="app-main">
+  <section class="view active" id="view-downloader" aria-labelledby="download-title">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR MEDIA, IN YOUR HANDS</p>
+        <h1 id="download-title">Download media without the guesswork.</h1>
+        <p class="hero-text">Paste a link, check what is available, then download the option that makes sense. Every step stays visible, from validation to the finished file.</p>
+        <div class="platform-list" aria-label="Supported sources"><span class="platform-chip instagram"><span class="platform-dot">◎</span> Instagram</span><span class="platform-chip facebook"><span class="platform-dot">f</span> Facebook <small>connector required</small></span><span class="authorization-note"><svg class="icon"><use href="#i-lock"></use></svg> Authorized media only</span></div>
+      </div>
+      <aside class="hero-note"><span class="hero-note-icon"><svg class="icon"><use href="#i-check"></use></svg></span><div><strong>Clear before you download</strong><p>We validate the link and show availability first. Private, unavailable, or unsupported media is explained before a job starts.</p></div></aside>
+    </div>
+
+    <div class="download-layout">
+      <div class="download-primary">
+        <section class="download-card" aria-labelledby="paste-title">
+          <div class="section-heading"><div><p class="step-label">STEP 1</p><h2 id="paste-title">Paste a media link</h2></div><span class="step-status" id="composer-step">Ready</span></div>
+          <p class="section-intro">Use an Instagram post, reel, or video link. Facebook reels, watch pages, posts, and videos are validated here and become downloadable when a Facebook connector is installed.</p>
+          <form id="submit-form" autocomplete="off" novalidate>
+            <label class="sr-only" for="source-input">Instagram or Facebook media URL</label>
+            <div class="url-input-wrap"><svg class="url-icon icon"><use href="#i-link"></use></svg><input id="source-input" name="source" inputmode="url" spellcheck="false" autocomplete="url" placeholder="Paste an Instagram or Facebook link" aria-describedby="source-help route-hint"><button type="button" class="paste-button" id="paste-button"><svg class="icon"><use href="#i-copy"></use></svg><span>Paste</span></button></div>
+            <div class="input-help-row"><span id="source-help">Examples: instagram.com/reel/… · facebook.com/reel/…</span><button class="text-button" type="button" id="clear-input" hidden>Clear</button></div>
+            <div class="route-hint" id="route-hint" data-tone="neutral" aria-live="polite"><svg class="icon"><use href="#i-link"></use></svg><span>Paste a link and we’ll check whether it can be downloaded.</span></div>
+            <div id="submit-error" class="alert error" hidden role="alert"></div>
+            <div class="composer-actions"><p><svg class="icon"><use href="#i-lock"></use></svg> You can only download media you’re allowed to access.</p><button type="submit" class="button primary" id="submit-button"><span>Check link</span><svg class="icon"><use href="#i-arrow"></use></svg></button></div>
+          </form>
+        </section>
+
+        <section class="inspection-shell" id="inspection-stage" aria-live="polite" aria-label="Media information">
+          <div class="empty-inspection" id="inspection-empty"><div class="empty-art"><svg class="icon"><use href="#i-image"></use></svg><svg class="icon overlay"><use href="#i-video"></use></svg></div><div><h2>Media details will appear here</h2><p>Check a link to see its type, availability, preview, and downloadable options.</p></div></div>
+          <div id="inspection-content" hidden></div>
+        </section>
+      </div>
+      <aside class="activity-panel" aria-labelledby="activity-title"><div class="activity-header"><div><p class="step-label">ACTIVITY</p><h2 id="activity-title">Recent downloads</h2></div><button type="button" class="text-button" data-view="history">View all <svg class="icon"><use href="#i-arrow"></use></svg></button></div><div class="activity-list" id="activity-list"></div><div class="activity-empty" id="activity-empty"><span class="activity-empty-mark"><svg class="icon"><use href="#i-history"></use></svg></span><p><strong>Your download history will live here.</strong><br>Start by checking a link above.</p></div></aside>
+    </div>
+    <section class="workflow-strip" aria-label="How downloads work"><div><span>1</span><p><strong>Paste</strong><small>Add an Instagram link, or Facebook with its connector enabled.</small></p></div><div><span>2</span><p><strong>Review</strong><small>Confirm the media and available option.</small></p></div><div><span>3</span><p><strong>Download</strong><small>Follow progress and open your file.</small></p></div></section>
+  </section>
+
+  <section class="view" id="view-history" aria-labelledby="history-title" hidden>
+    <div class="view-heading"><div><p class="eyebrow">DOWNLOAD HISTORY</p><h1 id="history-title">Everything you’ve downloaded.</h1><p>See live progress, completed files, and anything that needs another try.</p></div><button type="button" class="button secondary" data-view="downloader"><svg class="icon"><use href="#i-download"></use></svg> New download</button></div>
+    <div class="history-stats" id="history-stats"></div>
+    <section class="history-card"><div class="history-card-head"><h2>Downloads</h2><span id="history-count">0 total</span></div><div class="jobs" id="jobs-list"></div><div class="empty-history" id="jobs-empty"><svg class="icon"><use href="#i-download"></use></svg><h2>No downloads yet</h2><p>Check a media link to begin your first download.</p><button type="button" class="button primary" data-view="downloader">Go to downloader</button></div></section>
+  </section>
+
+  <section class="view" id="view-setup" aria-labelledby="setup-title" hidden>
+    <div class="view-heading compact"><div><p class="eyebrow">SETUP</p><h1 id="setup-title">Connections and download settings.</h1><p>Keep account access and local download details in one quiet place.</p></div></div>
+    <div class="setup-grid">
+      <section class="setup-card setup-card-wide" aria-labelledby="accounts-title"><div class="section-heading"><div><p class="step-label">CONNECTIONS</p><h2 id="accounts-title">Instagram account</h2></div><span id="connection-summary" class="step-status">Checking</span></div><div id="connections-list" class="connections-list"></div><div id="connections-empty" class="connection-empty"><span class="connection-icon"><svg class="icon"><use href="#i-lock"></use></svg></span><div><strong>Connect your Instagram professional account</strong><p>Instagram downloads use the official API for media belonging to the account that authorizes this app.</p></div></div>
+        <details class="connection-wizard" id="connection-wizard">
+          <summary><span>Connect an account</span><small>Requires an Instagram professional account and Meta app</small></summary>
+          <div class="wizard-body">
+            <div class="wizard-guidance">
+              <strong>Set up the callback first.</strong>
+              <span>Choose a public HTTPS callback URL, add that exact value to Meta’s <em>OAuth redirect URIs</em>, then use the same value below. Localhost and placeholder URLs will be rejected by Meta. For a local callback page, run <code>mediadl oauth callback</code> and tunnel only its port 8766.</span>
+            </div>
+            <div class="wizard-step">
+              <span class="wizard-number">1</span>
+              <div><h3>Get a secure authorization link</h3><p>Enter your Meta app details. The app secret is only requested after you approve access.</p></div>
+            </div>
+            <div class="field-grid">
+              <label class="field"><span>Instagram App ID <b aria-hidden="true">*</b></span><input id="ig-client-id" required autocomplete="off" spellcheck="false" placeholder="1234567890123456" aria-describedby="ig-client-id-message"><small class="field-message" id="ig-client-id-message" data-helper="Find this in Meta’s Instagram Login setup, step 3.">Find this in Meta’s Instagram Login setup, step 3.</small></label>
+              <label class="field"><span>Redirect URI <b aria-hidden="true">*</b></span><input id="ig-redirect" type="url" required inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://your-domain.example/auth/callback" aria-describedby="ig-redirect-message"><small class="field-message" id="ig-redirect-message" data-helper="Use the exact public HTTPS callback URL registered in Meta.">Use the exact public HTTPS callback URL registered in Meta.</small></label>
+            </div>
+            <label class="check"><input type="checkbox" id="ig-force"> Start a fresh authorization</label>
+            <div class="wizard-start-actions"><button class="button secondary" type="button" id="ig-start">Get authorization link <svg class="icon"><use href="#i-external"></use></svg></button><button class="text-button" type="button" id="ig-restart" hidden>Change details / start over</button></div>
+            <p class="wizard-status" id="ig-start-status" aria-live="polite">Step 2 unlocks after a valid authorization link is created.</p>
+            <div id="ig-link" class="authorize-link" hidden>
+              <p><strong>Before approving:</strong> if Meta reports <em>Invalid redirect_uri</em>, register this exact value in Meta’s Instagram Login business settings, then choose <em>Start a fresh authorization</em>.</p>
+              <code id="ig-authorized-redirect"></code>
+              <p>Approve the request, then copy the full URL you land on into step 2.</p>
+              <a id="ig-authorize" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+            <div class="wizard-step second">
+              <span class="wizard-number">2</span>
+              <div><h3>Finish connecting</h3><p>Paste the full redirect URL, including <code>code</code> and <code>state</code>.</p></div>
+            </div>
+            <fieldset class="wizard-completion" id="ig-step-two" disabled aria-describedby="ig-step-two-status">
+              <legend class="sr-only">Finish connecting</legend>
+              <div class="field-grid">
+                <label class="field field-full"><span>Redirect URL <b aria-hidden="true">*</b></span><input id="ig-redirect-url" type="url" required inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://your-domain.example/auth/callback?code=…&state=…" aria-describedby="ig-redirect-url-message"><small class="field-message" id="ig-redirect-url-message" data-helper="Paste the entire browser address after you approve access.">Paste the entire browser address after you approve access.</small></label>
+                <label class="field"><span>Instagram App Secret <b aria-hidden="true">*</b></span><input id="ig-secret" type="password" required autocomplete="off" spellcheck="false" placeholder="••••••••••••••••" aria-describedby="ig-secret-message"><small class="field-message" id="ig-secret-message" data-helper="Used once to finish the connection; it is not stored.">Used once to finish the connection; it is not stored.</small></label>
+              </div>
+              <button class="button primary" type="button" id="ig-complete">Connect account</button>
+            </fieldset>
+            <p class="wizard-status locked" id="ig-step-two-status" aria-live="polite">Locked until Step 1 creates an authorization link.</p>
+            <div id="ig-error" class="alert error" hidden role="alert"></div>
+            <div id="ig-success" class="alert success" hidden></div>
+          </div>
+        </details>
+      </section>
+      <section class="setup-card" aria-labelledby="location-title"><p class="step-label">LOCAL STORAGE</p><h2 id="location-title">Download location</h2><div class="location-value"><svg class="icon"><use href="#i-folder"></use></svg><code id="setup-output">Loading…</code></div><p class="muted-copy">Finished media stays on this device. You can open or save each file from its completed download.</p></section>
+      <section class="setup-card" aria-labelledby="formats-title"><p class="step-label">AVAILABILITY</p><h2 id="formats-title">Source support</h2><div class="support-list" id="support-list"></div></section>
+      <section class="setup-card setup-card-wide selftest-card" aria-labelledby="check-title"><div><p class="step-label">SYSTEM CHECK</p><h2 id="check-title">Make sure this device is ready</h2><p class="muted-copy">Run a small local download through the same pipeline. No account or internet connection is used.</p></div><div class="selftest-actions"><button type="button" class="button secondary" id="selftest-button"><svg class="icon"><use href="#i-play"></use></svg> Run system check</button><div id="selftest-result" aria-live="polite"></div></div></section>
+    </div>
+  </section>
+</main>
+
+<aside id="drawer" class="drawer" hidden aria-label="Download detail" aria-modal="true" role="dialog"><div class="drawer-head"><div class="drawer-title"><span id="drawer-kicker">DOWNLOAD DETAILS</span><h2 id="drawer-title">Download</h2><code id="drawer-id"></code></div><button id="drawer-close" class="icon-button" type="button" aria-label="Close details"><svg class="icon"><use href="#i-x"></use></svg></button></div><div class="drawer-body" id="drawer-body"></div></aside>
+<div id="scrim" class="scrim" hidden></div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

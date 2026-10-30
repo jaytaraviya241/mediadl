@@ -1,0 +1,7 @@
+{
+  "data": [
+    {"id": "17896450804038745", "shortcode": "SanitizedCode3", "permalink": "https://www.instagram.com/p/SanitizedCode3/", "timestamp": "2026-07-04T08:01:22+0000", "media_type": "CAROUSEL_ALBUM", "media_product_type": "FEED"},
+    {"id": "17889455560051460", "shortcode": "SanitizedCode4", "permalink": "https://www.instagram.com/reel/SanitizedCode4/", "timestamp": "2026-08-01T12:00:00+0000", "media_type": "VIDEO", "media_product_type": "REELS"}
+  ],
+  "paging": {"cursors": {"before": "BBB", "after": "CCC"}}
+}

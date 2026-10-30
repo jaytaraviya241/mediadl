@@ -1,0 +1,32 @@
+{
+  "id": "17896450804038745",
+  "media_type": "CAROUSEL_ALBUM",
+  "media_product_type": "FEED",
+  "permalink": "https://www.instagram.com/p/SanitizedCode3/",
+  "shortcode": "SanitizedCode3",
+  "timestamp": "2026-07-04T08:01:22+0000",
+  "caption": "sanitized carousel caption",
+  "username": "acme.studio",
+  "children": {
+    "data": [
+      {
+        "id": "17889455560051451",
+        "media_type": "IMAGE",
+        "media_url": "https://scontent.cdninstagram.com/v/t51/child1.jpg?oh=SANITIZED",
+        "alt_text": "first"
+      },
+      {
+        "id": "17889455560051452",
+        "media_type": "VIDEO",
+        "media_url": "https://scontent.cdninstagram.com/v/t50/child2.mp4?oh=SANITIZED",
+        "thumbnail_url": "https://scontent.cdninstagram.com/v/t51/child2_cover.jpg?oh=SANITIZED"
+      },
+      {
+        "id": "17889455560051453",
+        "media_type": "IMAGE",
+        "media_url": "https://scontent.cdninstagram.com/v/t51/child3.jpg?oh=SANITIZED",
+        "alt_text": "third"
+      }
+    ]
+  }
+}
